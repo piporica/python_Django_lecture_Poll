@@ -13,17 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include # 인클루드는 계층용
-from polls import views
+from django.urls import path   # include 인클루드는 계층용
+from . import views
 
-# /admin 눌렀을 시...
-# /polls -> 모든 투표 질문을 화면에 출력
-# 2번째 인자 : 입력 URL을 처리할 함수를 명시 - View 안의 함수
-# 이거 순서대로 찾음 - 순서 중요!
+# /여기는 polls 안의 url!
+app_name = 'polls'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('polls/', include ('polls.urls'))  # 논리적인 이름임
+    path('', views.index, name='index'),
+    path('<int:q_id>/', views.detail, name='detail'),  # 꺽쇠 - 데이타추출
 ]
 
